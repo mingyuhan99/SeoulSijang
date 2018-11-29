@@ -2,70 +2,41 @@
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="24"
-    build-mode="FULL"
+    build-mode="COLD"
     density="420dpi"
     format="10"
-    ir-eligibility="R_CLASS_CHANGE"
     plugin-version="3.1.3"
-    timestamp="1538303762151"
+    timestamp="1541917923551"
     token="3787279718336043779"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="1648" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="552" />
+        duration="0" />
     <task
         name="verifier"
-        duration="196" />
+        duration="0" />
 
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/dep/dependencies.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_0.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_6.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_5.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_4.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_2.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_1.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_3.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_7.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_9.apk"
-        type="SPLIT" />
-    <artifact
-        location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_8.apk"
-        type="SPLIT" />
     <artifact
         location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/instant-run-apk/debug/Sijang-debug.apk"
         type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        ir-eligibility="R_CLASS_CHANGE"
-        timestamp="1538303762151"
-        verifier="COLD_SWAP_REQUESTED" >
+        timestamp="1541917667763"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            type="SPLIT" />
+        <artifact
+            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_9.apk"
+            type="SPLIT" />
         <artifact
             location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/dep/dependencies.apk"
             type="SPLIT" />
@@ -73,13 +44,7 @@
             location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_6.apk"
-            type="SPLIT" />
-        <artifact
-            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_5.apk"
-            type="SPLIT" />
-        <artifact
-            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_7.apk"
             type="SPLIT" />
         <artifact
             location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_2.apk"
@@ -91,14 +56,22 @@
             location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_9.apk"
-            type="SPLIT" />
-        <artifact
             location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_8.apk"
             type="SPLIT" />
+        <artifact
+            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_6.apk"
+            type="SPLIT" />
+        <artifact
+            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/split-apk/debug/slices/slice_5.apk"
+            type="SPLIT" />
+        <artifact
+            location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/instant-run-apk/debug/Sijang-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1541917923551"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/instant-run-apk/debug/Sijang-debug.apk"
             type="SPLIT_MAIN" />

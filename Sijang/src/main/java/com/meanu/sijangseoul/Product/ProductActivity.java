@@ -58,6 +58,7 @@ public class ProductActivity extends AppCompatActivity implements SearchFragment
     @BindView(R.id.myCurruntLocation)
     TextView myCurruntLocation;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +100,8 @@ public class ProductActivity extends AppCompatActivity implements SearchFragment
                 })
         );
     }// ==ONCREATE==
+
+
 
 
     private void transitionToSearch(int transition) {
@@ -182,6 +185,13 @@ public class ProductActivity extends AppCompatActivity implements SearchFragment
                 getDrawable(R.drawable.chevron_down), // Menu open icon
                 getDrawable(R.drawable.chevron_up)));
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        if ()
+//        NavigationIconClickListener navigationIconClickListener = new NavigationIconClickListener(this);
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

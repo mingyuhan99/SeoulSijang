@@ -56,11 +56,11 @@ public final class R {
         public static final int adjust_width = 0x7f09001d;
         public static final int auto = 0x7f090024;
         public static final int dark = 0x7f090045;
-        public static final int icon_only = 0x7f09006c;
-        public static final int light = 0x7f090078;
-        public static final int none = 0x7f09008b;
-        public static final int standard = 0x7f0900d1;
-        public static final int wide = 0x7f090100;
+        public static final int icon_only = 0x7f09006d;
+        public static final int light = 0x7f090079;
+        public static final int none = 0x7f09008d;
+        public static final int standard = 0x7f0900d3;
+        public static final int wide = 0x7f090102;
     }
     public static final class string {
         public static final int common_google_play_services_enable_button = 0x7f0f002c;

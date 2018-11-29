@@ -2,6 +2,7 @@ package com.meanu.sijangseoul.Detail;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -218,7 +219,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 case 3:
                     background.setImageResource(R.drawable.peaches);
             }
-
         }
     }
 
@@ -227,36 +227,72 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 //        if (item.getItemId() == R.id.heart) {
 //            invalidateOptionsMenu();
 //        }
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.heart:
+                boolean state = readStae(dataList.getcOT_CONTS_NAME());
+                if (state){
+                    state = false;
+                    saveStae(dataList.getcOT_CONTS_NAME(),state);
+                    item.setIcon(R.drawable.heart_outline);
 
+                }
+                else{
+                    state = true;
+                    saveStae(dataList.getcOT_CONTS_NAME(),state);
+                    item.setIcon(R.drawable.heart);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+//
+        }
+    }
+    private void saveStae(String string, boolean isFavourite) {
+        SharedPreferences aSharedPreferenes = this.getSharedPreferences(
+                string, Context.MODE_PRIVATE);
+        SharedPreferences.Editor aSharedPreferenesEdit = aSharedPreferenes
+                .edit();
+        aSharedPreferenesEdit.putBoolean("State", isFavourite);
+        aSharedPreferenesEdit.putString("Name",string);
+        aSharedPreferenesEdit.commit();
     }
 
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        View parentLayout = findViewById(android.R.id.content);
-//        if (canAddItem) {
-//            menu.getItem(0).setIcon(R.drawable.heart);
-////            SharedPreference.addFavorite(this, dataList);
+    private boolean readStae(String string) {
+        SharedPreferences aSharedPreferenes = this.getSharedPreferences(
+               string, Context.MODE_PRIVATE);
+        return aSharedPreferenes.getBoolean("State", false);
+    }
+
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        View parentLayout = findViewById(android.R.id.content);
+        boolean canAddItem = readStae(dataList.getcOT_CONTS_NAME());
+        if (canAddItem) {
+            menu.getItem(0).setIcon(R.drawable.heart);
+            canAddItem = false;
+//            saveStae(dataList.getcOT_CONTS_NAME(),canAddItem);
 //            Snackbar.make(parentLayout, "구독 시장에 추가", Snackbar.LENGTH_LONG)
 //                    .setAction("YES", new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View v) {
 //                        }
 //                    }).show();
-//            canAddItem = false;
-//        } else {
-//            menu.getItem(0).setIcon(R.drawable.heart_outline);
-////            SharedPreference.removeFavorite(this, dataList);
+
+        } else {
+            menu.getItem(0).setIcon(R.drawable.heart_outline);
+            canAddItem = true;
+//            saveStae(dataList.getcOT_CONTS_NAME(),canAddItem);
 //            Snackbar.make(parentLayout, "구독 시장에서 제거", Snackbar.LENGTH_LONG)
 //                    .setAction("YES", new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View v) {
 //                        }
 //                    }).show();
-//            canAddItem = true;
-//        }
-//
-//        return super.onPrepareOptionsMenu(menu);
-//    }
+
+        }
+
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 
 
     @Override

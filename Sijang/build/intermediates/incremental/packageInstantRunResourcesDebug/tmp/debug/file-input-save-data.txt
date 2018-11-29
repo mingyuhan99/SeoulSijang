@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Sep 30 19:36:04 KST 2018
+#Mon Nov 05 20:35:40 KST 2018
 1.base=/Users/mac/Desktop/Android Studio/서울 공모전/SeoulSijang/Sijang/build/intermediates/assets/debug
 2.path=pricesample.json
 0.baseType=DIRECTORY

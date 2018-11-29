@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.meanu.sijangseoul.R;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,20 +45,20 @@ public class BackdropMainFragment extends Fragment {
                 ftsA.addToBackStack("BackdropAFragment");
                 ftsA.commit();
                 break;
-//            case R.id.backdrop_B :
-//                FragmentTransaction ftsB = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
-//                ftsB.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-//                ftsB.replace(R.id.backdrop, new BackdropBFragment(),"BackdropBFragment");
-//                ftsB.addToBackStack("BackdropBFragment");
-//                ftsB.commit();
-//                break;
-//            case R.id.backdrop_C :
-//                FragmentTransaction ftsC = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
-//                ftsC.setCustomAnimations(R.anim.slideup, android.R.anim.fade_out);
-//                ftsC.replace(R.id.product_grid, new BackdropCFragment(),"BackdropCFragment");
-//                ftsC.addToBackStack("BackdropCFragment");
-//                ftsC.commit();
-//                break;
+            case R.id.backdrop_B :
+                FragmentTransaction ftsB = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
+                ftsB.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+                ftsB.replace(R.id.backdrop, new BackdropMeFragment(),"BackdropMeFragment");
+                ftsB.addToBackStack("BackdropMeFragment");
+                ftsB.commit();
+                break;
+            case R.id.backdrop_C :
+                FragmentTransaction ftsC = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
+                ftsC.setCustomAnimations(R.anim.slideup, android.R.anim.fade_out);
+                ftsC.replace(R.id.product_grid, new BackdropCFragment(),"BackdropCFragment");
+                ftsC.addToBackStack("BackdropCFragment");
+                ftsC.commit();
+                break;
         }
     }
 }
