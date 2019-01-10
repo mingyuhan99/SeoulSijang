@@ -4,7 +4,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +15,9 @@ import android.widget.ImageView;
 
 import com.meanu.sijangseoul.Backdrop.BackdropMainFragment;
 import com.meanu.sijangseoul.R;
+import com.meanu.sijangseoul.model.RetroPrice;
+
+import java.util.List;
 
 /**
  * {@link View.OnClickListener} used to translate the product grid sheet downward on
@@ -24,6 +26,7 @@ import com.meanu.sijangseoul.R;
 public class NavigationIconClickListener implements View.OnClickListener {
 
     private final AnimatorSet animatorSet = new AnimatorSet();
+    private List<RetroPrice.Mgismulgainfo.row> dataList;
     private Context context;
     private View sheet;
     private Interpolator interpolator;
@@ -34,7 +37,7 @@ public class NavigationIconClickListener implements View.OnClickListener {
     private FragmentManager fragmentManager;
     int a = 0;
 
-    public  NavigationIconClickListener(
+    public NavigationIconClickListener(
             Context context, FragmentManager fragmentManager, View sheet, @Nullable Interpolator interpolator,
             @Nullable Drawable openIcon, @Nullable Drawable closeIcon) {
         this.context = context;
@@ -46,25 +49,30 @@ public class NavigationIconClickListener implements View.OnClickListener {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         height = displayMetrics.heightPixels;
-
-
+    }
+    public NavigationIconClickListener(){
+//        backdropShown = !backdropShown;
+//        animatorSet.removeAllListeners();
+//        animatorSet.end();
+//        animatorSet.cancel();
+////        updateIcon(view);
+////        AnimatedVectorDrawable drawable = (AnimatedVectorDrawable) context.getDrawable(R.drawable.ic_menu_animatable);
+////        ((ImageView) view).setImageDrawable(drawable);
+////        drawable.start();
+//        final int translateY = height - 300;
+//        ObjectAnimator animator = ObjectAnimator.ofFloat(sheet, "translationY", backdropShown ? translateY : 0);
+//        animator.setDuration(500);
+//        if (interpolator != null) {
+//            animator.setInterpolator(interpolator);
+//        }
+//        animatorSet.play(animator);
+//        animator.start();
     }
 
-    public NavigationIconClickListener(Context context) {
-        this.context = context;
-        if (a == 0){
-            a++;
-        }
-        else{
-            a--;
-        }
-    }
-
-    @Override
     public void onClick(View view) {
-
         switch (a) {
             case 0:
+                ((ImageView) view).setImageDrawable(closeIcon);
                 FragmentTransaction fts = fragmentManager.beginTransaction();
                 fts.replace(R.id.backdrop, new BackdropMainFragment(), "BackdropMainFragment");
                 fts.commit();
@@ -72,6 +80,7 @@ public class NavigationIconClickListener implements View.OnClickListener {
                 a++;
                 break;
             case 1:
+                ((ImageView) view).setImageDrawable(openIcon);
                 FragmentTransaction fts3 = fragmentManager.beginTransaction();
                 fts3.replace(R.id.backdrop, new BackdropMainFragment(), "BackdropMainFragment");
                 fts3.commit();
@@ -82,28 +91,30 @@ public class NavigationIconClickListener implements View.OnClickListener {
 
     }
 
-    private void updateIcon(View view) {
-        if (openIcon != null && closeIcon != null) {
-            if (!(view instanceof ImageView)) {
-                throw new IllegalArgumentException("updateIcon() must be called on an ImageView");
-            }
-            if (backdropShown) {
-                ((ImageView) view).setImageDrawable(closeIcon);
-            } else {
-                ((ImageView) view).setImageDrawable(openIcon);
-            }
-        }
+//    private void updateIcon(View view) {
+//        if (openIcon != null && closeIcon != null) {
+//            if (!(view instanceof ImageView)) {
+//                throw new IllegalArgumentException("updateIcon() must be called on an ImageView");
+//            }
+//            if (backdropShown) {
+//
+//            } else {
+//            }
+//        }
+//    }
+    public boolean animated() {
+        return backdropShown;
     }
 
-    public void updateFragment(View view) {
+    public void updateFragment(@Nullable View view) {
         backdropShown = !backdropShown;
         animatorSet.removeAllListeners();
         animatorSet.end();
         animatorSet.cancel();
 //        updateIcon(view);
-        AnimatedVectorDrawable drawable = (AnimatedVectorDrawable) context.getDrawable(R.drawable.ic_menu_animatable);
-        ((ImageView) view).setImageDrawable(drawable);
-        drawable.start();
+//        AnimatedVectorDrawable drawable = (AnimatedVectorDrawable) context.getDrawable(R.drawable.ic_menu_animatable);
+//        ((ImageView) view).setImageDrawable(drawable);
+//        drawable.start();
         final int translateY =
                 height - 300;
         ObjectAnimator animator = ObjectAnimator.ofFloat(sheet, "translationY", backdropShown ? translateY : 0);
@@ -113,11 +124,5 @@ public class NavigationIconClickListener implements View.OnClickListener {
         }
         animatorSet.play(animator);
         animator.start();
-
     }
-//      TODO: when user CLICKED , get updateFragment
-//    @OnClick(R.id.NestedScrollView)
-//    void onClick(){
-//
-//    }
 }

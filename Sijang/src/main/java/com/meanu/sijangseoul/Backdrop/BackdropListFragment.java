@@ -1,11 +1,12 @@
 package com.meanu.sijangseoul.Backdrop;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -18,7 +19,9 @@ import com.google.gson.Gson;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemAdapter;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemViewHolder;
+import com.meanu.sijangseoul.Detail.DetailActivity;
 import com.meanu.sijangseoul.R;
+import com.meanu.sijangseoul.Util.RecyclerItemClickListener;
 import com.meanu.sijangseoul.model.GuName;
 import com.meanu.sijangseoul.model.RetroPrice;
 
@@ -27,13 +30,19 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackdropListFragment extends Fragment {
+import butterknife.ButterKnife;
+
+import static android.content.Context.MODE_PRIVATE;
+
+public class BackdropListFragment extends android.support.v4.app.Fragment {
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view1 = inflater.inflate(R.layout.backdrop_list_fragment, container, false);
-        RecyclerView recyclerView = view1.findViewById(R.id.recycler_view);
+        View view = inflater.inflate(R.layout.backdrop_list_fragment, container, false);
+        final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        ButterKnife.bind(this, view);
 
         RecyclerViewExpandableItemManager expMgr = new RecyclerViewExpandableItemManager(null);
 
@@ -43,7 +52,34 @@ public class BackdropListFragment extends Fragment {
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
 
         expMgr.attachRecyclerView(recyclerView);
-        return view1;
+        final List<RetroPrice.Mgismulgainfo.row> dataList;
+        SharedPreferences prefs = getActivity().getSharedPreferences("text", MODE_PRIVATE);
+        String json = prefs.getString("jsonMeanu", null);//If there is no YOURKEY found null will be the default value.
+        RetroPrice retroPrice = new Gson().fromJson(json, RetroPrice.class);
+        dataList = retroPrice.getMgismulgainfo().getRow();
+
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(view.getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        TextView text = recyclerView.findViewHolderForAdapterPosition(position).itemView.findViewById(android.R.id.text1);
+                        for (int i = 0; i < dataList.size(); i++) {
+                            if (text.getText().equals(dataList.get(i).cOT_CONTS_NAME)) {
+                                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                                intent.putExtra("key", dataList.get(i));
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                    }
+                })
+        );
+        return view;
     }
 
     static abstract class MyBaseItem {
@@ -90,6 +126,7 @@ public class BackdropListFragment extends Fragment {
         public MyChildViewHolder(View itemView) {
             super(itemView);
         }
+
     }
 
     static class MyAdapter extends AbstractExpandableItemAdapter<MyGroupViewHolder, MyChildViewHolder> {
@@ -102,19 +139,8 @@ public class BackdropListFragment extends Fragment {
         public MyAdapter(Context context) {
             this.context = context;
 
-            String json = null;
-            AssetManager assetManager = context.getAssets();
-            InputStream is = null;
-            try {
-                is = assetManager.open("test");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                json = new String(buffer, "UTF-8");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            SharedPreferences prefs = context.getSharedPreferences("text", MODE_PRIVATE);
+            String json = prefs.getString("jsonMeanu", null);//If there is no YOURKEY found null will be the default value.
             RetroPrice retroPrice = new Gson().fromJson(json, RetroPrice.class);
             dataList = retroPrice.getMgismulgainfo().getRow();
 
@@ -193,6 +219,7 @@ public class BackdropListFragment extends Fragment {
         @Override
         public MyChildViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_child_item_for_expandable_minimal, parent, false);
+
             return new MyChildViewHolder(v);
         }
 
@@ -203,14 +230,17 @@ public class BackdropListFragment extends Fragment {
         }
 
         @Override
-        public void onBindChildViewHolder(MyChildViewHolder holder, int groupPosition, int childPosition, int viewType) {
-            MyChildItem child = mItems.get(groupPosition).children.get(childPosition);
+        public void onBindChildViewHolder(final MyChildViewHolder holder, int groupPosition, final int childPosition, int viewType) {
+            final MyChildItem child = mItems.get(groupPosition).children.get(childPosition);
             holder.textView.setText(child.text);
+
         }
 
         @Override
         public boolean onCheckCanExpandOrCollapseGroup(MyGroupViewHolder holder, int groupPosition, int x, int y, boolean expand) {
             return true;
         }
+
+
     }
 }

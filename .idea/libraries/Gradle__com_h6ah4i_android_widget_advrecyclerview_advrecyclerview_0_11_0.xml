@@ -1,8 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.h6ah4i.android.widget.advrecyclerview:advrecyclerview-0.11.0">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/advrecyclerview-0.11.0.aar/0da2db111ff19030303211746d6c0bca/annotations.zip!/" />
+    </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/advrecyclerview-0.11.0.aar/8c8b07bd8994c41e64a95e00a08476eb/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/advrecyclerview-0.11.0.aar/8c8b07bd8994c41e64a95e00a08476eb/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/advrecyclerview-0.11.0.aar/0da2db111ff19030303211746d6c0bca/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/advrecyclerview-0.11.0.aar/0da2db111ff19030303211746d6c0bca/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

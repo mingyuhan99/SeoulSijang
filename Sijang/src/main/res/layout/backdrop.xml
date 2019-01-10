@@ -16,17 +16,19 @@
         android:focusable="true"
         android:text="시장리스트"
         android:textColor="@color/colorText" />
-
-    <android.support.design.button.MaterialButton
-        android:id="@+id/backdrop_B"
-        style="@style/TextAppearance.SeoulSijang.Backdrop.Button"
-        android:text="개발자"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <android.support.design.button.MaterialButton
         android:id="@+id/backdrop_C"
         android:text="구독 시장"
         style="@style/TextAppearance.SeoulSijang.Backdrop.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/backdrop_B"
+        style="@style/TextAppearance.SeoulSijang.Backdrop.Button"
+        android:text="개발자"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

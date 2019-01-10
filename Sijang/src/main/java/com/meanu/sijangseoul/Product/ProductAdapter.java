@@ -86,20 +86,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     photoMetadataResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoMetadataResponse>() {
                         @Override
                         public void onComplete(@NonNull Task<PlacePhotoMetadataResponse> task) {
-                            PlacePhotoMetadataResponse photos = task.getResult();
-                            PlacePhotoMetadataBuffer photoMetadataBuffer = photos.getPhotoMetadata();
-                            PlacePhotoMetadata photoMetadata = photoMetadataBuffer.get(0);
-                            Task<PlacePhotoResponse> photoResponse = mGeoDataClient.getPhoto(photoMetadata);
-                            photoResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoResponse>() {
-                                @Override
-                                public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
-                                    PlacePhotoResponse photo = task.getResult();
-                                    Bitmap bitmap = photo.getBitmap();
-                                    Bitmap resized = Bitmap.createScaledBitmap(bitmap, 160, 140, true);
-                                    viewHolder.sijangImage.setImageBitmap(resized);
-                                }
-                            });
+                            try {
+                                PlacePhotoMetadataResponse photos = task.getResult();
+                                PlacePhotoMetadataBuffer photoMetadataBuffer = photos.getPhotoMetadata();
+                                PlacePhotoMetadata photoMetadata = photoMetadataBuffer.get(0);
+                                Task<PlacePhotoResponse> photoResponse = mGeoDataClient.getPhoto(photoMetadata);
+                                photoResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoResponse>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
+                                        PlacePhotoResponse photo = task.getResult();
+                                        Bitmap bitmap = photo.getBitmap();
+                                        Bitmap resized = Bitmap.createScaledBitmap(bitmap, 160, 140, true);
+                                        viewHolder.sijangImage.setImageBitmap(resized);
+                                    }
+                                });
+                            } catch (Exception e) {
+                                viewHolder.sijangImage.setImageResource(R.drawable.peaches);
+
+                            }
+
                         }
+
+
                     });
                 } else if (dataList.get(position).cOT_CONTS_NAME.equals("신창시장")) {
                     viewHolder.sijangImage.setImageResource(R.drawable.peaches);

@@ -18,7 +18,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private List<RetroPrice.Mgismulgainfo.row> dataList;
     private int itemLayout;
     private List<RetroPrice.Mgismulgainfo.row> arrayList;
-
     public SearchAdapter(List<RetroPrice.Mgismulgainfo.row> dataList, int itemLayout) {
         this.dataList = dataList;
         this.itemLayout = itemLayout;
@@ -49,7 +48,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder viewHolder, int position) {
         viewHolder.label.setText(dataList.get(position).getcOT_CONTS_NAME());
         viewHolder.label.setTag("tag");
-        viewHolder.icon.setImageResource(R.drawable.shopping_cart);
+        if (dataList.get(position).getcOT_CONTS_NAME().contains("점")){
+            viewHolder.icon.setImageResource(R.drawable.shopping_cart);
+
+        } else{
+            viewHolder.icon.setImageResource(R.drawable.shopping);
+
+        }
+
     }
 
     @Override

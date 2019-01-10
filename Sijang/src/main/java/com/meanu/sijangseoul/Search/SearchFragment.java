@@ -2,6 +2,7 @@ package com.meanu.sijangseoul.Search;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,18 +22,17 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.meanu.sijangseoul.R;
-import com.meanu.sijangseoul.Util.PriceGenerator;
 import com.meanu.sijangseoul.Util.RecyclerItemClickListener;
 import com.meanu.sijangseoul.model.RetroPrice;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class SearchFragment extends Fragment {
@@ -70,6 +69,23 @@ public class SearchFragment extends Fragment {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
+        String json = null;
+        AssetManager assetManager = getContext().getAssets();
+        InputStream is = null;
+        try {
+            is = assetManager.open("pricesample.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        retroPrice = new Gson().fromJson(json, RetroPrice.class);
+        List<RetroPrice.Mgismulgainfo.row> dataList = retroPrice.getMgismulgainfo().getRow();
+
+
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -83,7 +99,8 @@ public class SearchFragment extends Fragment {
 
         initLayout(view);
 
-        retrofitParsing("");
+        generateDataList(dataList);
+
         editTextFilter();
         addOnItemTouchListener();
 
@@ -194,28 +211,6 @@ public class SearchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         onPickerSetListener = null;
-    }
-
-    void retrofitParsing(String sijangName) {
-        RetroPrice.Service service = PriceGenerator.createService(RetroPrice.Service.class);
-        Call<RetroPrice> call = service.getService(sijangName);
-        call.enqueue(new Callback<RetroPrice>() {
-            @Override
-            public void onResponse(Call<RetroPrice> call, Response<RetroPrice> response) {
-                retroPrice = response.body();
-                Log.d(TAG, "response.raw :" + response.raw());
-                if (response.body() != null) {
-                    generateDataList(retroPrice.getMgismulgainfo().getRow());
-
-                } else {
-                    Log.d(TAG, "onResponse: NULL");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RetroPrice> call, Throwable t) {
-            }
-        });
     }
 
     public interface OnPickerSetListener {

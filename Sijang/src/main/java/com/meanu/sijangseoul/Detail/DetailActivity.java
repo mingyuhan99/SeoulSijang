@@ -126,6 +126,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         dataName.add(dataList.getcOT_NAME_17());
         dataName.add(dataList.getcOT_NAME_18());
         dataName.add(dataList.getcOT_NAME_19());
+
         List<String> dataPrice = new ArrayList<>();
         dataPrice.add(dataList.getcOT_VALUE_02());
         dataPrice.add(dataList.getcOT_VALUE_03());
@@ -175,25 +176,31 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     photoMetadataResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoMetadataResponse>() {
                         @Override
                         public void onComplete(@NonNull Task<PlacePhotoMetadataResponse> task) {
-                            // Get the list of photos.
-                            PlacePhotoMetadataResponse photos = task.getResult();
-                            // Get the PlacePhotoMetadataBuffer (metadata for all of the photos).
-                            PlacePhotoMetadataBuffer photoMetadataBuffer = photos.getPhotoMetadata();
-                            // Get the first photo in the list.
-                            PlacePhotoMetadata photoMetadata = photoMetadataBuffer.get(1);
-                            // Get the attribution text.
-//                            CharSequence attribution = photoMetadata.getAttributions();
-                            // Get a full-size bitmap for the photo.
-                            Task<PlacePhotoResponse> photoResponse = mGeoDataClient.getPhoto(photoMetadata);
-                            photoResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoResponse>() {
-                                @Override
-                                public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
-                                    PlacePhotoResponse photo = task.getResult();
-                                    Bitmap bitmap = photo.getBitmap();
-                                    background.setImageBitmap(bitmap);
+                            try {
 
-                                }
-                            });
+                                PlacePhotoMetadataResponse photos = task.getResult();
+                                // Get the PlacePhotoMetadataBuffer (metadata for all of the photos).
+                                PlacePhotoMetadataBuffer photoMetadataBuffer = photos.getPhotoMetadata();
+                                // Get the first photo in the list.
+                                PlacePhotoMetadata photoMetadata = photoMetadataBuffer.get(1);
+                                // Get the attribution text.
+//                            CharSequence attribution = photoMetadata.getAttributions();
+                                // Get a full-size bitmap for the photo.
+                                Task<PlacePhotoResponse> photoResponse = mGeoDataClient.getPhoto(photoMetadata);
+                                photoResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoResponse>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
+                                        PlacePhotoResponse photo = task.getResult();
+                                        Bitmap bitmap = photo.getBitmap();
+                                        background.setImageBitmap(bitmap);
+
+                                    }
+                                });
+                            } catch (Exception e) {
+                                background.setImageResource(R.drawable.peaches);
+                            }
+                            // Get the list of photos.
+
                         }
                     });
                 } else if (dataList.cOT_CONTS_NAME.equals("신창시장")) {
@@ -224,21 +231,18 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == R.id.heart) {
-//            invalidateOptionsMenu();
-//        }
+
         switch (item.getItemId()) {
             case R.id.heart:
                 boolean state = readStae(dataList.getcOT_CONTS_NAME());
-                if (state){
+                if (state) {
                     state = false;
-                    saveStae(dataList.getcOT_CONTS_NAME(),state);
+                    saveStae(dataList.getcOT_CONTS_NAME(), state);
                     item.setIcon(R.drawable.heart_outline);
 
-                }
-                else{
+                } else {
                     state = true;
-                    saveStae(dataList.getcOT_CONTS_NAME(),state);
+                    saveStae(dataList.getcOT_CONTS_NAME(), state);
                     item.setIcon(R.drawable.heart);
                 }
                 return true;
@@ -247,19 +251,20 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 //
         }
     }
+
     private void saveStae(String string, boolean isFavourite) {
         SharedPreferences aSharedPreferenes = this.getSharedPreferences(
                 string, Context.MODE_PRIVATE);
         SharedPreferences.Editor aSharedPreferenesEdit = aSharedPreferenes
                 .edit();
         aSharedPreferenesEdit.putBoolean("State", isFavourite);
-        aSharedPreferenesEdit.putString("Name",string);
+        aSharedPreferenesEdit.putString("Name", string);
         aSharedPreferenesEdit.commit();
     }
 
     private boolean readStae(String string) {
         SharedPreferences aSharedPreferenes = this.getSharedPreferences(
-               string, Context.MODE_PRIVATE);
+                string, Context.MODE_PRIVATE);
         return aSharedPreferenes.getBoolean("State", false);
     }
 
@@ -268,29 +273,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         boolean canAddItem = readStae(dataList.getcOT_CONTS_NAME());
         if (canAddItem) {
             menu.getItem(0).setIcon(R.drawable.heart);
-            canAddItem = false;
-//            saveStae(dataList.getcOT_CONTS_NAME(),canAddItem);
-//            Snackbar.make(parentLayout, "구독 시장에 추가", Snackbar.LENGTH_LONG)
-//                    .setAction("YES", new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                        }
-//                    }).show();
 
         } else {
             menu.getItem(0).setIcon(R.drawable.heart_outline);
-            canAddItem = true;
-//            saveStae(dataList.getcOT_CONTS_NAME(),canAddItem);
-//            Snackbar.make(parentLayout, "구독 시장에서 제거", Snackbar.LENGTH_LONG)
-//                    .setAction("YES", new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                        }
-//                    }).show();
 
         }
-
-
         return super.onPrepareOptionsMenu(menu);
     }
 
