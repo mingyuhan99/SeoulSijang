@@ -7,6 +7,7 @@
 - [FIXED](https://github.com/meanu/SeoulSijang#API)
   - [JSON](https://github.com/meanu/SeoulSijang#JSON)
   - [LIBRARY](https://github.com/meanu/SeoulSijang#LIBRARY)
+  - [REVIEW](https://github.com/meanu/SeoulSijang#REVIEW)
 
 
 
@@ -16,7 +17,6 @@
 
 2018년 서울시 앱 개발공모전 참가를 위해 만들었던 공공 API를 이용한 서울시 **시장 가격 데이터 제공** Android application.
 
-가격 데이터를 유저에게 제공하는 목표만을 위해서 개발하였기 때문에 과정에서 모든 판단에 대한 이유가 없었다. 틀린 판단에 대한 수정이 없었고, 단지 빌드 완성을 목표로 진행하였다. (그 당시에는 그게 맞는 줄 알았다.)
 
 # **Features**
 
@@ -141,3 +141,26 @@
 ## **LIBRARY**
 
 [butterknife](https://github.com/JakeWharton/butterknife)(deprecated) → [View Binding](https://developer.android.com/topic/libraries/view-binding)
+
+## **REVIEW**
+
+가격 데이터를 유저에게 제공하는 목표만을 위해서 개발하였기 때문에 과정에서 모든 판단에 대한 이유가 없었다. 틀린 판단에 대한 수정이 없었고, 단지 빌드 완성을 목표로 진행하였다. (그 당시에는 그게 맞는 줄 알았다.)
+2018년에 작성했던 코드를 리뷰하고 좋은 방향으로 설계해서 코드작성 진행
+
+### main
+
+method
+- location gps check → GetLocationPermission 이전에 미리 받아두기
+- json check →  json update
+- Start next Activity with latitude and longtitude intent → ProductActivity
+
+
+나쁜점
+
+- 지금 좌표 기준으로 가장 가까운 시장 순으로 리스트를 소트했음
+
+    → 서울 밖의 유저들이 있다고 가정하지 못함
+
+- 지속적으로 업데이트 되는 json을 parse 해 오면서 같지 않으면 업데이트를 했음
+
+    →  많은 row값 중에서 가격 데이터 한 부분만 바뀌는데 하나를 위해 모든 데이터를 업데이트하는건 비효율적
